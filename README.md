@@ -1,0 +1,2 @@
+# tscpractices
+Typescript practices
