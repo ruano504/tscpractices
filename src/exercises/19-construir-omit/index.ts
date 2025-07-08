@@ -1,6 +1,12 @@
 /* _____________ Aqui va tu codigo _____________ */
 
-type MyOmit<T, K> = any;
+type MyOmit<T, K> = T extends object
+  ? {
+      [P in keyof T as P extends K ? never : P]: T[P] extends object
+        ? MyOmit<T[P], K>
+        : T[P];
+    }
+  : never;
 
 /* _____________ Casos de prueba  _____________ */
 
@@ -12,7 +18,6 @@ type cases = [
   Expect<Equal<Expected3, MyOmit<Todo1, 'description' | 'completed'>>>,
 ];
 
-// @ts-expect-error
 type error = MyOmit<Todo, 'description' | 'invalid'>;
 
 interface Todo {

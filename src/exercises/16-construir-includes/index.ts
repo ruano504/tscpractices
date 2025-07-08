@@ -1,6 +1,12 @@
 /* _____________ Aqui va tu codigo _____________ */
 
-type Includes<T extends readonly any[], U> = any;
+type Includes<T extends readonly any[], X> =
+  T extends [infer First, ...infer Rest]
+    ? Equal<First, X> extends true
+      ? true
+      : Includes<Rest, X>
+    : false;
+
 
 /* _____________ Casos de prueba  _____________ */
 import type { Equal, Expect } from '@type-challenges/utils';

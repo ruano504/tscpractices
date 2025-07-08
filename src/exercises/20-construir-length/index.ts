@@ -1,6 +1,8 @@
 /* _____________ Aqui va tu codigo _____________ */
-type MyLength<S extends string> = any;
-
+type MyLength<S extends string, complement extends any[] = []> =
+  S extends `${infer _}${infer Rest}`
+    ? MyLength<Rest, [unknown, ...complement]>
+    : complement['length'];
 /* _____________ Casos de prueba  _____________ */
 
 import type { Equal, Expect } from '@type-challenges/utils';
