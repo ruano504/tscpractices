@@ -1,8 +1,9 @@
 
 /* _____________ Aqui va tu codigo _____________ */
 
-type MyPick<T, K> = any
-
+type MyPick<Type, Keys extends keyof Type> = {
+    [i in Keys]: Type[i];
+};
 
 
 /* _____________ Casos de prueba  _____________ */
